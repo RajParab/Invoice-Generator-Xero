@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+
+{% block body %}
+	
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <form  method="post" class="">
+            {% csrf_token %}
+           {% bootstrap_form payment_form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    {% endbuttons %}
+          </form>
+        </div>
+        
+      </div>
+    </div>
+  </section>  
+{% endblock %}

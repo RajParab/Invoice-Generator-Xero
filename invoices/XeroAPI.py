@@ -4,7 +4,7 @@ import webbrowser
 import base64
 
 client_id = '828A00E74A06468C8DD5DFFA8F08A423'#828A00E74A06468C8DD5DFFA8F08A423
-client_secret = 'v_2FnlWuf8Jt0093sRPZLYqB-m5VjyqIvp8_Jt-Q8OHohvzZ'#v_2FnlWuf8Jt0093sRPZLYqB-m5VjyqIvp8_Jt-Q8OHohvzZ
+client_secret = 'RrClUm3v1bn0ARPFwX_A8egcGqKDEM09kyfDdLKC_wdcYZzi'#RrClUm3v1bn0ARPFwX_A8egcGqKDEM09kyfDdLKC_wdcYZzi
 redirect_url = 'https://xero.com/'
 scope = 'offline_access accounting.transactions'
 b64_id_secret = base64.b64encode(bytes(client_id + ':' + client_secret, 'utf-8')).decode('utf-8')
@@ -15,7 +15,7 @@ class Xero():
 
 	def __init__(self):
 		self.client_id = '828A00E74A06468C8DD5DFFA8F08A423'
-		self.client_secret = 'v_2FnlWuf8Jt0093sRPZLYqB-m5VjyqIvp8_Jt-Q8OHohvzZ'
+		self.client_secret = 'RrClUm3v1bn0ARPFwX_A8egcGqKDEM09kyfDdLKC_wdcYZzi'
 		self.redirect_url= 'https://xero.com/'
 		self.scope='offline_access accounting.transactions'
 		self.b64_id_secret = base64.b64encode(bytes(client_id + ':' + client_secret, 'utf-8')).decode('utf-8')
@@ -37,9 +37,9 @@ class Xero():
 		rt_file.write(new_refresh_token)
 		rt_file.close()
 
-		
+		access_token=json_response['access_token']
 		at_file = open('access_token.txt', 'w')
-		at_file.write(json_response['access_token'])
+		at_file.write(access_token)
 		at_file.close()
 		return [json_response['access_token'], json_response['refresh_token']]
 
@@ -53,6 +53,7 @@ class Xero():
 		json_response = response.json()
 		tenant=json_response[0]
 		print(json_response,"tenantsID")
+		return tenant['tenantId']
 
 	def XeroNewRefreshToken(self):
 		rt_file=open('refresh_token.txt', 'r+')
@@ -62,7 +63,7 @@ class Xero():
     
 		
 
-		return tenant['tenantId']
+		
 
 	def XeroContactID(self,access_token,tenantId):
 		contact_ref_url='https://api.xero.com/api.xro/2.0/Contacts'
